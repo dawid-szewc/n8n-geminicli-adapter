@@ -1,0 +1,61 @@
+{
+  "name": "Gemini CLI - Batch Processing",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger-batch",
+      "name": "When clicking 'Test workflow'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://10.10.20.100:3000/batch",
+        "authentication": "none",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"prompts\": [\n    \"Co to jest JavaScript?\",\n    \"Co to jest Python?\",\n    \"Co to jest TypeScript?\"\n  ]\n}",
+        "options": {}
+      },
+      "id": "call-gemini-batch",
+      "name": "Call Gemini Batch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [460, 300]
+    }
+  ],
+  "connections": {
+    "When clicking 'Test workflow'": {
+      "main": [
+        [
+          {
+            "node": "Call Gemini Batch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-11-09T14:00:00.000Z",
+  "versionId": "1"
+}
